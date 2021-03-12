@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+{%load static%}
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="widtvice-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+</head>
+<body style=" background-color:#1D1D24;">
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  navbar  @@@@@@@@@@@@@@@@@@@@@@@@@@@@!-->	
+<nav class="navbar navbar-light navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="container">
+            <div class="row">
+               <div class="col-sm-3">
+               <img src="https://cdn.pixabay.com/photo/2014/03/25/16/28/todo-list-297195__340.png" style="width:130px;margin-right:130px;margin-top:30px">
+               </div>
+               <div class="col-sm-8" >
+                <img src="{% static "download.png" %}">
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  form  @@@@@@@@@@@@@@@@@@@@@@@@@@@@!-->
+
+<div class="container" style="width:700px;background-color:#31303B; border-radius:20px">
+    <div class="row">
+        <form method="POST" action="" style="width:300px;margin-left:200px;margin-top:10px;font-size:20px;">
+            {% csrf_token %}
+            <label style="color:white;font-size:20px">TITLE</label><br>
+            {{ form.title}}
+            <label style="color:white;font-size:20px">DUE_DATE</label><br>
+            {{form.due}}
+            <div class="row">
+                <div class="input-group">
+                    <span class="input-group-addon" style="background-color:#2C722E"><i class="glyphicon glyphicon-plus"></i></span>
+                    <input id="email" type="submit" value="add" class="btn btn-success">
+                </div>
+                <div class="col-sm-4" style="width:150px">
+                  <a href="{%url "create1" %}" class="btn btn-success btn-block">Add</a>
+                </div>
+                <div class="col-sm-4" style="width:150px">
+                    <a href="{%url "delete_all1" %}" type="submit" class="btn btn-success btn-block">
+                    <span class="glyphicon glyphicon-trash"></span>Delete_completed</a>
+                </div>
+            </div>
+
+
+        </form>
+    </div><br>
+   
+
+
+
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  list @@@@@@@@@@@@@@@@@@@@@@@@@@@@!-->
+
+<div class="container" style="width:500px;border-radius:20px">
+    	<table class="table table-fixed">
+    			
+                    <thead style="border-color:#e67e22">
+                        <tr>
+                            <th style="font-size:20px;color:white;">Title</th>
+                            <th style="font-size:20px;color:white">Date/Time</th>
+                            <th style="font-size:20px;color:white;">Action</th>
+                        </tr>
+                    </thead>
+                <tbody style=" overflow-y:auto;">
+                    {% for task in tasks %}
+                    {% if task.complete %}
+                <tr>
+                    
+                	<td style="font-size:15px;color:red;text-decoration:line-through;background-color:#3B4961;"><span style="color:#98AFC7;font-style:oblique;"><b>{{task.title}}</b></span></td>
+                    <td style="font-size:15px;color:red;text-decoration:line-through;background-color:#3B4961;"><span style="color:#98AFC7;font-style:oblique;"><b>{{task.due}}</b></span></td>
+                    {%else%}
+                    <td style="font-size:15px;color:#98AFC7">{{task.title}}</td>
+                    <td style="font-size:15px; color:#98AFC7">{{task.due}}</td>
+                    {%endif%}
+                    {% if task.complete %}
+                    <td style="background-color:#3B4961;">
+                         
+                    	<form class="d-inline"  action="delete/{{task.id}}" method="post">
+                          {%csrf_token%}
+                           <a href="update/{{task.id}}" data-toggle="model" data-target="#myModal" class= "btn btn-info btn-lg"name="edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <button type="submit" class="btn btn-danger" style="margin-left:10px">
+                            <span class="glyphicon glyphicon-remove"></span></button>
+		 				</form>	
+                        {%else%}
+                        <td>
+                         
+                        <form class="d-inline"  action="delete/{{task.id}}" method="post">
+                            {%csrf_token%}
+                             <a href="update/{{task.id}}" data-toggle="model" data-target="#myModal" class= "btn btn-info btn-lg"name="edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                            
+                            <button type="submit" class="btn btn-danger" style="margin-left:10px">
+                            <span class="glyphicon glyphicon-remove"></span></button>
+                        </form> 
+                        {%endif%}
+                    </td>
+                   	
+                </tr>
+
+                {% endfor %}
+                </tbody>
+
+        </table>
+
+
+</div>	
+ 
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+   
+
+</body>
+
+
+</html>
