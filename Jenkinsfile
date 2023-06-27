@@ -1,28 +1,42 @@
-/* Jenkinsfile (Declarative Pipeline) */
-/* Requires the Docker Pipeline plugin */
 pipeline {
     agent any
-    tools {
-        // Specify the Python installation defined in Jenkins Tools
-        python 'Python3.10.6'
-    }
+    
     stages {
-        stage('Checkout') {
+        stage('Clone repository') {
             steps {
-                git 'https://github.com/pals123305/git_django.git'
+                checkout scm
             }
         }
-        stage('Run Tests') {
+        
+        stage('Setup virtual environment') {
+            steps {
+                sh 'python -m venv venv'
+            }
+        }
+        
+        stage('Activate virtual environment') {
+            steps {
+                sh 'source venv/bin/activate'
+            }
+        }
+        
+        stage('Install dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        
+        stage('Run tests') {
             steps {
                 sh 'python manage.py test'
             }
         }
         
-        stage('Build and Deploy') {
+        // Add more stages as needed
+        
+        stage('Clean up') {
             steps {
-                sh 'python manage.py collectstatic --noinput'
-                sh 'python manage.py migrate'
-                sh 'python manage.py runserver'
+                sh 'deactivate' // Deactivate the virtual environment
             }
         }
     }
