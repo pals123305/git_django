@@ -2,6 +2,9 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
     agent any
+    environment {
+        PATH = "/usr/bin:${env.PATH}"
+    }
     
     stages {
         stage('Checkout') {
