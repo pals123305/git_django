@@ -1,11 +1,32 @@
 /* Jenkinsfile (Declarative Pipeline) */
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'python:3.10.7-alpine' } }
+    agent any
+    
     stages {
-        stage('build') {
+        stage('Checkout') {
             steps {
-                sh 'python --version'
+                git 'https://github.com/pals123305/git_django.git'
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        
+        stage('Run Tests') {
+            steps {
+                sh 'python manage.py test'
+            }
+        }
+        
+        stage('Build and Deploy') {
+            steps {
+                sh 'python manage.py collectstatic --noinput'
+                sh 'python manage.py migrate'
+                sh 'python manage.py runserver'
             }
         }
     }
