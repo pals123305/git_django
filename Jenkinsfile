@@ -2,10 +2,6 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
     agent any
-    tools {
-        // Define the Python installation
-        python 'Python3.9' // Replace with the name of your Python installation in Jenkins
-    }
     
     stages {
         stage('Checkout') {
