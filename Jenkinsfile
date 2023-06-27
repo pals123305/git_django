@@ -9,13 +9,6 @@ pipeline {
                 git 'https://github.com/pals123305/git_django.git'
             }
         }
-        
-        stage('Install Dependencies') {
-            steps {
-                sh 'pip install -r requirements.txt'
-            }
-        }
-        
         stage('Run Tests') {
             steps {
                 sh 'python manage.py test'
