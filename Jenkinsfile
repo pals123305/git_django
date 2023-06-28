@@ -33,16 +33,10 @@ pipeline {
         
         stage('Run tests') {
             steps {
-                sh 'python3 manage.py runserver'
+                sh 'python3 --version'
             }
         }
         
-        // Add more stages as needed
         
-        stage('Clean up') {
-            steps {
-                sh 'deactivate' // Deactivate the virtual environment
-            }
-        }
     }
 }
