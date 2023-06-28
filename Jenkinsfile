@@ -10,9 +10,7 @@ pipeline {
         
         stage('Setup virtual environment') {
             steps {
-                withPythonEnv('python3') {
                     sh 'virtualenv venv'
-                }
             }
         }
         
