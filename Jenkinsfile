@@ -36,7 +36,14 @@ pipeline {
                 sh 'python3 --version'
             }
         }
-        
+        stage('Ansible') {
+            steps {
+                ansiblePlaybook(
+                    playbook: '/home/pallavi/projects/ansible/playbooks/create_file.yml',
+                    inventory: '/etc/ansible/hosts',
+                )
+            }
+        }
         
     }
 }
