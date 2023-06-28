@@ -41,14 +41,6 @@ pipeline {
                 sh 'ansible --version'
             }
         }
-        stage('Ansible') {
-            steps {
-                ansiblePlaybook(
-                    playbook: '/home/pallavi/projects/ansible/playbooks/create_file.yaml',
-                    inventory: '/etc/ansible/hosts',
-                )
-            }
-        }
-        
+       
     }
 }
