@@ -31,9 +31,13 @@ pipeline {
             }
         }
         
-        stage('Run tests') {
+        stage('Python version') {
             steps {
-                sh 'python3 --version',
+                sh 'python3 --version'
+            }
+        }
+        stage('Ansible version') {
+            steps {
                 sh 'ansible --version'
             }
         }
