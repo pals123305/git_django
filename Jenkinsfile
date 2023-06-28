@@ -33,7 +33,8 @@ pipeline {
         
         stage('Run tests') {
             steps {
-                sh 'python3 --version'
+                sh 'python3 --version',
+                sh 'ansible --version'
             }
         }
         stage('Ansible') {
