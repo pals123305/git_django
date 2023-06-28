@@ -7,6 +7,11 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Install virtualenv') {
+            steps {
+                sh 'pip install virtualenv'
+            }
+        }
         
         stage('Setup virtual environment') {
             steps {
