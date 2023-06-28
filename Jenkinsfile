@@ -41,6 +41,11 @@ pipeline {
                 sh 'ansible --version'
             }
         }
+        stage('Run Ansible') {
+            steps {
+                sh 'ansible-playbook  /home/pallavi/projects/ansible/playbooks/create_file.yaml'
+            }
+        }
        
     }
 }
