@@ -10,6 +10,7 @@ pipeline {
         stage('Install virtualenv') {
             steps {
                 sh 'pip install virtualenv'
+                sh '/var/lib/jenkins/.local/bin/virtualenv venv'
             }
         }
         
