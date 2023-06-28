@@ -43,7 +43,7 @@ pipeline {
         }
         stage('Run Ansible') {
             steps {
-                sh '/usr/bin/ansible-playbook  /home/pallavi/projects/ansible/playbooks/create_file.yaml -f 5'
+                sh '/usr/bin/ansible-playbook create_file.yaml -f 5'
             }
         }
        
