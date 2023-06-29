@@ -5,5 +5,5 @@
   tasks:
     - name: create file
       file:
-        path: example.txt
+        path: /home/geitpl/example.txt
         state: touch
