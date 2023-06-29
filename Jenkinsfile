@@ -36,16 +36,6 @@ pipeline {
                 sh 'python3 --version'
             }
         }
-        stage('Ansible version') {
-            steps {
-                sh 'ansible --version'
-            }
-        }
-        stage('Run Ansible') {
-            steps {
-                sh '/usr/bin/ansible-playbook create_file.yaml -f 5'
-            }
-        }
        
     }
 }
