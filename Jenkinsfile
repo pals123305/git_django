@@ -36,6 +36,12 @@ pipeline {
                 sh 'python3 --version'
             }
         }
-       
+       stage('Run Ansible playbook') {
+            steps {
+                script {
+                    sh 'ansible-playbook -i inventories/inventory.ini create_file.yaml'
+                }
+            }
+        }
     }
 }
